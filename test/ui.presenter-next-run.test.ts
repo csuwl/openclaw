@@ -10,7 +10,9 @@ describe("formatNextRun", () => {
   it("includes weekday and relative time", () => {
     const ts = Date.UTC(2026, 1, 23, 15, 0, 0);
     const out = formatNextRun(ts);
-    expect(out).toMatch(/^[A-Za-z]{3}, /);
+    // Accept any locale's weekday format (e.g., "Mon" in English, "周一" in Chinese)
+    // Format: "weekday, YYYY/M/D HH:MM:SS (relative time)"
+    expect(out).toMatch(/^.+, \d{4}\/\d{1,2}\/\d{1,2} \d{1,2}:\d{2}:\d{2} \(.+\)$/);
     expect(out).toContain("(");
     expect(out).toContain(")");
   });
